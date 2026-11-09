@@ -20,37 +20,35 @@ import com.example.taskplanner.ui.theme.TaskPlannerTheme
 
 
 @Composable
-fun AddNewTaskScreen(){
-    var title by rememberSaveable {
-        mutableStateOf("")
-    }
-    var description by rememberSaveable {
-        mutableStateOf("")
-    }
+fun AddNewTaskScreen(title: String,
+                     description: String,
+                     onTitleChanged: (String)-> Unit,
+                     onDescriptionChaged : (String)-> Unit,
+                     onSave: ()-> Unit,
+                     onCancel : () -> Unit
+                     ){
     Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
         OutlinedTextField(
             value = title,
-            onValueChange = { title = it},
+            onValueChange = {onTitleChanged(it)},
             label = { Text(text = "Task Title") },
             modifier = Modifier.fillMaxWidth()
-
         )
         OutlinedTextField(
             value = description,
-            onValueChange = { description = it},
+            onValueChange = { onDescriptionChaged(it)},
             label = { Text(text = "Task Description") },
             modifier = Modifier.fillMaxWidth()
-
         )
         Row() {
             ElevatedButton(onClick = {
 
-
+                onSave()
             }) {
                 Text(text = "Save")
             }
             ElevatedButton(onClick = {
-
+                onCancel()
 
             }) {
                 Text(text = "Cancel")
@@ -64,6 +62,6 @@ fun AddNewTaskScreen(){
 @Composable
 fun GreetingPreview() {
     TaskPlannerTheme {
-        AddNewTaskScreen()
+       // AddNewTaskScreen()
     }
 }

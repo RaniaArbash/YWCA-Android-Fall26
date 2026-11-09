@@ -21,61 +21,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.taskplanner.Composables.TaskCard
 import com.example.taskplanner.Composables.summaryCard
 import com.example.taskplanner.Task
 
-
+// MVVM
 @Composable
-fun StudentTaskPlanner() {
-    var sampleTasks = listOf(
-        Task(
-            1,
-            "Kotlin Assignment",
-            "Complete exercises 1-5",
-            "Nov 10",
-            "University",
-            false
-        ),
-        Task(
-            2,
-            "Study Compose",
-            "Review Compose layouts",
-            "Nov 11",
-            "Study",
-            true
-        ),
-        Task(
-            3,
-            "Prepare Presentation",
-            "Prepare slides for class",
-            "Nov 12",
-            "University",
-            false
-        ),
-        Task(
-            4,
-            "Read Chapter 3",
-            "Review the textbook",
-            "Nov 13",
-            "Study",
-            false
-        ),
-        Task(
-            5,
-            "Submit Lab",
-            "Upload the completed project",
-            "Nov 14",
-            "University",
-            true
-        )
-    )
-    // higher order functions
-    var totalCompletedTask =   sampleTasks.count { it.isCompleted}// $1
-    var totalPendingTasks = sampleTasks.count{ t-> !t.isCompleted}
-    sampleTasks.forEach { task ->
-        Log.d("planner",task.title)
-    }
+fun StudentTaskPlanner(tasks : List<Task>,
+                       //navController: NavController){
+                       addNewTaskClicked : () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
         horizontalAlignment = Alignment.Start,
@@ -84,23 +42,24 @@ fun StudentTaskPlanner() {
         Text(text = "Welcome Back")
         Spacer(modifier = Modifier.height(24.dp))
         Row(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
-            summaryCard(modifier = Modifier.weight(1f), title = "Total", value = sampleTasks.size.toString())
+            summaryCard(modifier = Modifier.weight(1f), title = "Total", value = tasks.size.toString())
             summaryCard(modifier = Modifier.weight(1f),
                 title = "Completed",
-                value = sampleTasks.count{ task-> task.isCompleted }.toString() )
+                value = tasks.count{ task-> task.isCompleted }.toString() )
             summaryCard(modifier = Modifier.weight(1f),
                 title = "Pending",
-                value = sampleTasks.count{!it.isCompleted}.toString())
+                value = tasks.count{!it.isCompleted}.toString())
         }
         ElevatedButton(
             onClick = {
-
+                addNewTaskClicked()
+                //navController.navigate("addTask")
             }) {
             Text("Add New Task")
         }
 
         LazyColumn{
-            items(sampleTasks){task ->
+            items(tasks){task ->
                 TaskCard(task)
             }
         }
