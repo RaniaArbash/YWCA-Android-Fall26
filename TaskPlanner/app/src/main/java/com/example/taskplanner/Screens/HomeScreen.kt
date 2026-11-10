@@ -42,7 +42,7 @@ fun StudentTaskPlanner(tasks : List<Task>,
         Text(text = "Welcome Back")
         Spacer(modifier = Modifier.height(24.dp))
         Row(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
-            summaryCard(modifier = Modifier.weight(1f), title = "Total", value = tasks.size.toString())
+            sum maryCard(modifier = Modifier.weight(1f), title = "Total", value = tasks.size.toString())
             summaryCard(modifier = Modifier.weight(1f),
                 title = "Completed",
                 value = tasks.count{ task-> task.isCompleted }.toString() )
