@@ -109,24 +109,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             CourseSelectionTheme {
                 val navController = rememberNavController()
-
-                Scaffold(modifier = Modifier.fillMaxSize(),
-                    topBar = {
-                        TopAppBar(
-                            title = {Text(text = "Course Selection App")},
-                            actions = {
-                                IconButton(onClick = {
-                                    navController.navigate("selectedCourse")
-                                }) {
-                                    Icon(imageVector = Icons.Default.Star,
-                                        contentDescription = "navigate to another screen"
-                                    )
-                                }
-                            })
-                    }
-                //, topBar = TopAppBar(title = {}, actions = {})
-                ) { innerPadding ->
-
                     var favoriteIds by remember {
                         mutableStateOf(setOf<Int>())
                     }
@@ -135,8 +117,7 @@ class MainActivity : ComponentActivity() {
                         startDestination = "home"
                         ){
                         composable(route = "home"){
-                            HomeScreen(innerPadding,
-
+                            HomeScreen(
                                 courses,
                                 favoriteIds,
                                 favoritClicked = {
@@ -152,11 +133,23 @@ class MainActivity : ComponentActivity() {
                                         }
                                     Log.d("listOfIDS", favoriteIds.toString())
 
-                                })
+                                },
+                                movetoFavClicked = {
+                                     navController.navigate("selectedCourse")
+                                }
+                                )
                         }
 
                         composable(route="selectedCourse"){
-                            SelectedCoursesScreen()
+                            val favoriteCourses = courses.filter {
+                                it.id in favoriteIds
+                            }
+                            SelectedCoursesScreen(
+                                courseList = favoriteCourses,
+                                backButtonCLicked = {
+                                    navController.popBackStack()
+                                }
+                                )
                         }
                     }
 
@@ -164,7 +157,7 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-}
+
 
 
 
