@@ -16,21 +16,27 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.courseselection.Composables.CourseCard
 import com.example.courseselection.Course
+import com.example.courseselection.ViewModels.CourseVIewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-                courseList : List<Course>,
-               favList: Set<Int>,
+                viewModel: CourseVIewModel,
                favoritClicked: (id: Int)-> Unit,
                 movetoFavClicked : () -> Unit
     ){
+
+    val courseList by viewModel.couses.collectAsStateWithLifecycle()
+    val favList by viewModel.favoriteIds.collectAsStateWithLifecycle()
+
     Scaffold(modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(

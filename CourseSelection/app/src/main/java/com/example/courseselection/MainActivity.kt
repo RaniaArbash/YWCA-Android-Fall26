@@ -23,112 +23,41 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.courseselection.Screens.HomeScreen
 import com.example.courseselection.Screens.SelectedCoursesScreen
+import com.example.courseselection.ViewModels.CourseVIewModel
 import com.example.courseselection.ui.theme.CourseSelectionTheme
+import kotlinx.coroutines.flow.filter
 
 class MainActivity : ComponentActivity() {
-
 
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-
-
-        var courses =  listOf(
-            Course(
-                1, "CS 101",
-                "Introduction to Programming",
-                3, "Dr. Smith",
-                "Monday / Wednesday",
-                "10:00 - 11:30 AM",
-                "Room 204"
-            ),
-            Course(
-                2, "CS 205",
-                "Data Structures",
-                4, "Dr. Johnson",
-                "Tuesday / Thursday",
-                "11:00 AM - 12:30 PM",
-                "Room 310"
-            ),
-            Course(
-                3, "MATH 201",
-                "Discrete Mathematics",
-                3, "Dr. Brown",
-                "Monday / Wednesday",
-                "1:00 - 2:30 PM",
-                "Room 105"
-            ),
-            Course(
-                4, "CS 310",
-                "Software Engineering",
-                3, "Dr. Wilson",
-                "Sunday / Tuesday",
-                "9:00 - 10:30 AM",
-                "Room 220"
-            ),
-            Course(
-                5, "CS 320",
-                "Mobile Application Development",
-                4, "Dr. Davis",
-                "Monday / Wednesday",
-                "3:00 - 4:30 PM",
-                "Lab 12"
-            ),
-            Course(
-                6, "CS 350",
-                "Database Systems",
-                3, "Dr. Miller",
-                "Tuesday / Thursday",
-                "2:00 - 3:30 PM",
-                "Room 115"
-            ),
-            Course(
-                7, "CS 410",
-                "Artificial Intelligence",
-                3, "Dr. Taylor",
-                "Sunday / Tuesday",
-                "11:00 AM - 12:30 PM",
-                "Room 305"
-            ),
-            Course(
-                8, "CS 430",
-                "Computer Networks",
-                3, "Dr. Anderson",
-                "Monday / Wednesday",
-                "9:00 - 10:30 AM",
-                "Room 210"
-            )
-        )
         setContent {
             CourseSelectionTheme {
                 val navController = rememberNavController()
-                    var favoriteIds by remember {
-                        mutableStateOf(setOf<Int>())
-                    }
+                    var viewModel : CourseVIewModel = viewModel()
 
-                    NavHost(navController = navController,
+                    val courseList by viewModel.couses.collectAsStateWithLifecycle()
+                     val favList by viewModel.favoriteIds.collectAsStateWithLifecycle()
+
+                NavHost(navController = navController,
                         startDestination = "home"
                         ){
                         composable(route = "home"){
                             HomeScreen(
-                                courses,
-                                favoriteIds,
+                                viewModel,
                                 favoritClicked = {
                                     selectedID ->
-                                    favoriteIds =
-                                        if (selectedID in favoriteIds){
-                                        favoriteIds - selectedID
-                                        }
-                                    else {
-                                        favoriteIds + selectedID
-                                        }
+                                    viewModel.updateFavIDs(selectedID)
                                 },
                                 movetoFavClicked = {
                                      navController.navigate("selectedCourse")
@@ -137,8 +66,8 @@ class MainActivity : ComponentActivity() {
                         }
 
                         composable(route="selectedCourse"){
-                            val favoriteCourses = courses.filter {
-                                it.id in favoriteIds
+                            val favoriteCourses = courseList.filter {
+                                it.id in favList
                             }
                             SelectedCoursesScreen(
                                 courseList = favoriteCourses,
