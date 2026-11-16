@@ -26,8 +26,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 // MVVM
 @Composable
-fun StudentTaskPlanner(viewModel: TaskViewModel ,
-                       addNewTaskClicked : () -> Unit) {
+fun StudentTaskPlanner(viewModel: TaskViewModel ) {
     //val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val list by viewModel.tasksList.collectAsStateWithLifecycle()
 
@@ -47,14 +46,6 @@ fun StudentTaskPlanner(viewModel: TaskViewModel ,
                 title = "Pending",
                 value =list.count{!it.isCompleted}.toString())
         }
-        ElevatedButton(
-            onClick = {
-                addNewTaskClicked()
-                //navController.navigate("addTask")
-            }) {
-            Text("Add New Task")
-        }
-
         LazyColumn{
             items(list){task ->
                 TaskCard(task, onDelete = {

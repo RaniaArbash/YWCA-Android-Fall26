@@ -14,6 +14,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.taskplanner.DataLayer.Task
+import com.example.taskplanner.UILayer.ViewModels.Composables.MyFAB
 import com.example.taskplanner.UILayer.ViewModels.Screens.AddNewTaskScreen
 import com.example.taskplanner.UILayer.ViewModels.Screens.StudentTaskPlanner
 import com.example.taskplanner.UILayer.ViewModels.TaskViewModel
@@ -22,62 +23,24 @@ import com.example.taskplanner.ui.theme.TaskPlannerTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var sampleTasks = mutableListOf(
-            Task(
-                1,
-                "Kotlin Assignment",
-                "Complete exercises 1-5",
-                "Nov 10",
-                "University",
-                false
-            ),
-            Task(
-                2,
-                "Study Compose",
-                "Review Compose layouts",
-                "Nov 11",
-                "Study",
-                true
-            ),
-            Task(
-                3,
-                "Prepare Presentation",
-                "Prepare slides for class",
-                "Nov 12",
-                "University",
-                false
-            ),
-            Task(
-                4,
-                "Read Chapter 3",
-                "Review the textbook",
-                "Nov 13",
-                "Study",
-                false
-            ),
-            Task(
-                5,
-                "Submit Lab",
-                "Upload the completed project",
-                "Nov 14",
-                "University",
-                true
-            )
-        )
         enableEdgeToEdge()
         setContent {
             TaskPlannerTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                val navController = rememberNavController()
+
+                Scaffold(modifier = Modifier.fillMaxSize(),
+                    floatingActionButton = {
+                        MyFAB(onClick = {
+                            navController.navigate("addTask")
+
+                        })
+                }) { innerPadding ->
                     val taskViewModel: TaskViewModel = viewModel()
 
-                    val navController = rememberNavController()
                     NavHost(navController =navController,
                         startDestination =  "home"){
                         composable(route = "home"){
-                            StudentTaskPlanner(taskViewModel,
-                                addNewTaskClicked = {
-                                navController.navigate("addTask")
-                            })
+                            StudentTaskPlanner(taskViewModel)
                         }
                         composable(route = "addTask"){
                             AddNewTaskScreen(taskViewModel,
