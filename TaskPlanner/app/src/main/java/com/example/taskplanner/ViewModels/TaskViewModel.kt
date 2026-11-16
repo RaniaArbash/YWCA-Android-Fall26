@@ -67,6 +67,12 @@ class TaskViewModel : ViewModel() {
             currentList + newTask
         }
         Log.d("list",_tasksList.value.toString())
-
         }
+
+
+    fun deleteTask(taskToDelete : Task){
+        _tasksList.update { currentList ->
+            currentList - taskToDelete
+        }
+    }
     }

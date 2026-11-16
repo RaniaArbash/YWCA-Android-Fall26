@@ -67,7 +67,9 @@ fun StudentTaskPlanner(viewModel: TaskViewModel ,
 
         LazyColumn{
             items(list){task ->
-                TaskCard(task)
+                TaskCard(task, onDelete = {
+                    viewModel.deleteTask(task)
+                })
             }
         }
     }
