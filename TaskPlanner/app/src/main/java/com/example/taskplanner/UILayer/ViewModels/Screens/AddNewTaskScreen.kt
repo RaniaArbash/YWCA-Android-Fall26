@@ -1,4 +1,4 @@
-package com.example.taskplanner.Screens
+package com.example.taskplanner.UILayer.ViewModels.Screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,9 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.taskplanner.Task
-import com.example.taskplanner.ViewModels.TaskViewModel
+import com.example.taskplanner.DataLayer.Task
+import com.example.taskplanner.UILayer.ViewModels.TaskViewModel
 import com.example.taskplanner.ui.theme.TaskPlannerTheme
 
 

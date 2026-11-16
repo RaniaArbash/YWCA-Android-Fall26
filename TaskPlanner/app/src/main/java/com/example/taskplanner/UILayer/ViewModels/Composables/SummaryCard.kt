@@ -1,4 +1,4 @@
-package com.example.taskplanner.Composables
+package com.example.taskplanner.UILayer.ViewModels.Composables
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth

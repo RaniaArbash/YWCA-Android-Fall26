@@ -7,19 +7,16 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.taskplanner.Screens.AddNewTaskScreen
-import com.example.taskplanner.Screens.StudentTaskPlanner
-import com.example.taskplanner.ViewModels.TaskViewModel
+import com.example.taskplanner.DataLayer.Task
+import com.example.taskplanner.UILayer.ViewModels.Screens.AddNewTaskScreen
+import com.example.taskplanner.UILayer.ViewModels.Screens.StudentTaskPlanner
+import com.example.taskplanner.UILayer.ViewModels.TaskViewModel
 import com.example.taskplanner.ui.theme.TaskPlannerTheme
 // MVVM == ViewModel where all UI State are stored and managed
 class MainActivity : ComponentActivity() {

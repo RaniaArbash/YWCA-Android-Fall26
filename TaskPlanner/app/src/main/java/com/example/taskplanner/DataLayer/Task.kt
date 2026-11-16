@@ -1,4 +1,4 @@
-package com.example.taskplanner
+package com.example.taskplanner.DataLayer
 
 data class Task(
     val id: Int,
