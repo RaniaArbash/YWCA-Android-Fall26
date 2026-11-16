@@ -47,7 +47,7 @@ fun SelectedCoursesScreen(
         }
     ) { innerPadding ->
         if (courseList.isEmpty()){
-            Box(
+            Box(// ZStack
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding),
@@ -57,20 +57,21 @@ fun SelectedCoursesScreen(
                     text = "You haven't added any favorite courses yet.",
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
+
             }
         }
         else {
+
             LazyColumn(
                 modifier = Modifier.padding(innerPadding),
                 verticalArrangement =
                     Arrangement.spacedBy(12.dp)) {
-
                 items(
                     items = courseList,
                     key = {it.id})
-                { course ->
+                { c -> // there is a for loop here
                     CourseCard(
-                        course = course,
+                        course = c,
                         true,
                         favoritClicked = { }
                     )

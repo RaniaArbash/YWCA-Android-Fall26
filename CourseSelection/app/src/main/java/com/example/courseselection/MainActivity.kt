@@ -122,17 +122,13 @@ class MainActivity : ComponentActivity() {
                                 favoriteIds,
                                 favoritClicked = {
                                     selectedID ->
-                                    Log.d("selected ID", selectedID.toString())
-
                                     favoriteIds =
                                         if (selectedID in favoriteIds){
                                         favoriteIds - selectedID
                                         }
                                     else {
-                                            favoriteIds + selectedID
+                                        favoriteIds + selectedID
                                         }
-                                    Log.d("listOfIDS", favoriteIds.toString())
-
                                 },
                                 movetoFavClicked = {
                                      navController.navigate("selectedCourse")

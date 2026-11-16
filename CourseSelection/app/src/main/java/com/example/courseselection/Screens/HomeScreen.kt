@@ -26,7 +26,7 @@ import com.example.courseselection.Course
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    courseList : List<Course>,
+                courseList : List<Course>,
                favList: Set<Int>,
                favoritClicked: (id: Int)-> Unit,
                 movetoFavClicked : () -> Unit
@@ -74,7 +74,9 @@ fun HomeScreen(
                     CourseCard(
                         course = course,
                         course.id in favList,
-                        favoritClicked = { favoritClicked(it) }
+                        favoritClicked = {
+                            favoritClicked(it)
+                        }
                     )
                 }
             }
