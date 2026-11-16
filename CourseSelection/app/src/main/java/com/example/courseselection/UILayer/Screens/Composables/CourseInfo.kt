@@ -1,4 +1,4 @@
-package com.example.courseselection.Composables
+package com.example.courseselection.UILayer.Screens.Composables
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth

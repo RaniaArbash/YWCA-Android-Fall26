@@ -1,4 +1,4 @@
-package com.example.courseselection.Screens
+package com.example.courseselection.UILayer.Screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -22,41 +22,24 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.courseselection.Composables.CourseCard
-import com.example.courseselection.Course
-import com.example.courseselection.ViewModels.CourseVIewModel
+import com.example.courseselection.UILayer.Screens.Composables.CourseCard
+import com.example.courseselection.UILayer.Screens.Composables.MyButtomBar
+import com.example.courseselection.UILayer.Screens.ViewModels.CourseVIewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(
+fun HomeScreen(padding: PaddingValues,
                 viewModel: CourseVIewModel,
-               favoritClicked: (id: Int)-> Unit,
-                movetoFavClicked : () -> Unit
+                favoritClicked: (id: Int)-> Unit
     ){
 
     val courseList by viewModel.couses.collectAsStateWithLifecycle()
     val favList by viewModel.favoriteIds.collectAsStateWithLifecycle()
 
-    Scaffold(modifier = Modifier.fillMaxSize(),
-        topBar = {
-            TopAppBar(
-                title = {Text(text = "Course Selection App")},
-                actions = {
-                    IconButton(onClick = {
-                        movetoFavClicked()
-                    }) {
-                        Icon(imageVector = Icons.Default.Star,
-                            contentDescription = "navigate to another screen"
-                        )
-                    }
-                })
-        }
-        //, topBar = TopAppBar(title = {}, actions = {})
-    ) { innerPadding ->
 
         Column(
             modifier = Modifier
-                .fillMaxSize().padding(innerPadding)
+                .fillMaxSize().padding(padding)
         ) {
 
             Text(
@@ -88,4 +71,3 @@ fun HomeScreen(
             }
         }
     }
-}

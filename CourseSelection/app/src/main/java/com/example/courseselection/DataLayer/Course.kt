@@ -1,4 +1,4 @@
-package com.example.courseselection
+package com.example.courseselection.DataLayer
 
 data class Course(
     val id: Int,

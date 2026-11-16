@@ -1,4 +1,4 @@
-package com.example.courseselection.Screens
+package com.example.courseselection.UILayer.Screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -9,7 +9,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -21,36 +20,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.courseselection.Composables.CourseCard
-import com.example.courseselection.Course
+import com.example.courseselection.UILayer.Screens.Composables.CourseCard
+import com.example.courseselection.DataLayer.Course
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SelectedCoursesScreen(
-    courseList : List<Course>,
-    backButtonCLicked : ()-> Unit
+    padding: PaddingValues,
+    courseList : List<Course>
 ){
-    Scaffold(modifier = Modifier.fillMaxSize(),
-        topBar = {
-            TopAppBar(
-                title = {Text(text = "Selection Courses")},
-                navigationIcon = {
-                    IconButton(onClick = {
-                        backButtonCLicked()
-                    }) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Back"
-                        )
-                    }
-                })
-        }
-    ) { innerPadding ->
         if (courseList.isEmpty()){
             Box(// ZStack
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(innerPadding),
+                    .padding(padding),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
@@ -63,7 +46,7 @@ fun SelectedCoursesScreen(
         else {
 
             LazyColumn(
-                modifier = Modifier.padding(innerPadding),
+                modifier = Modifier.padding(padding),
                 verticalArrangement =
                     Arrangement.spacedBy(12.dp)) {
                 items(
@@ -81,8 +64,3 @@ fun SelectedCoursesScreen(
         }
 
     }
-
-
-
-
-}
