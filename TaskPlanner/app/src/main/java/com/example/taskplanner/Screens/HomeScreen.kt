@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -28,12 +29,18 @@ import androidx.navigation.compose.rememberNavController
 import com.example.taskplanner.Composables.TaskCard
 import com.example.taskplanner.Composables.summaryCard
 import com.example.taskplanner.Task
+import com.example.taskplanner.ViewModels.TaskViewModel
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 // MVVM
 @Composable
-fun StudentTaskPlanner(tasks : List<Task>,
-                       //navController: NavController){
+fun StudentTaskPlanner(viewModel: TaskViewModel ,
                        addNewTaskClicked : () -> Unit) {
+    //val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val list by viewModel.tasksList.collectAsStateWithLifecycle()
+
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
         horizontalAlignment = Alignment.Start,
@@ -42,13 +49,13 @@ fun StudentTaskPlanner(tasks : List<Task>,
         Text(text = "Welcome Back")
         Spacer(modifier = Modifier.height(24.dp))
         Row(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
-            sum maryCard(modifier = Modifier.weight(1f), title = "Total", value = tasks.size.toString())
+            summaryCard(modifier = Modifier.weight(1f), title = "Total", value =list.size.toString())
             summaryCard(modifier = Modifier.weight(1f),
                 title = "Completed",
-                value = tasks.count{ task-> task.isCompleted }.toString() )
+                value =list.count{ task-> task.isCompleted }.toString() )
             summaryCard(modifier = Modifier.weight(1f),
                 title = "Pending",
-                value = tasks.count{!it.isCompleted}.toString())
+                value =list.count{!it.isCompleted}.toString())
         }
         ElevatedButton(
             onClick = {
@@ -59,7 +66,7 @@ fun StudentTaskPlanner(tasks : List<Task>,
         }
 
         LazyColumn{
-            items(tasks){task ->
+            items(list){task ->
                 TaskCard(task)
             }
         }

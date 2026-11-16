@@ -13,13 +13,15 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.taskplanner.Screens.AddNewTaskScreen
 import com.example.taskplanner.Screens.StudentTaskPlanner
+import com.example.taskplanner.ViewModels.TaskViewModel
 import com.example.taskplanner.ui.theme.TaskPlannerTheme
-// MVVM
+// MVVM == ViewModel where all UI State are stored and managed
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,52 +71,23 @@ class MainActivity : ComponentActivity() {
         setContent {
             TaskPlannerTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    var title by rememberSaveable {
-                        mutableStateOf("")
-                    }
-                    var description by rememberSaveable {
-                        mutableStateOf("")
-                    }
+                    val taskViewModel: TaskViewModel = viewModel()
+
                     val navController = rememberNavController()
                     NavHost(navController =navController,
                         startDestination =  "home"){
-
                         composable(route = "home"){
-                            // StudentTaskPlanner(sampleTasks,navController)
-                            StudentTaskPlanner(sampleTasks,
+                            StudentTaskPlanner(taskViewModel,
                                 addNewTaskClicked = {
                                 navController.navigate("addTask")
                             })
                         }
                         composable(route = "addTask"){
-
-                            AddNewTaskScreen(
-                                title,
-                                description,
-                                {
-                                   title = it
-                                },
-                                onDescriptionChaged = {
-                                    description = it
-                                },
+                            AddNewTaskScreen(taskViewModel,
                                 onSave = {
-                                    val newTask =
-                                        Task(id = (sampleTasks.maxOfOrNull { it.id } ?: 0) + 1,
-                                        title = title,
-                                        description = description,
-                                        dueDate = "Nov 9, 2026",
-                                        category = "University",
-                                        isCompleted = false
-                                        )
-                                    title = ""
-                                    description = ""
-                                    sampleTasks.add(newTask)
                                     navController.popBackStack()
-
                                 },
                                 onCancel = {
-                                    title = ""
-                                    description = ""
                                     navController.popBackStack()
                                 }
                                 )
