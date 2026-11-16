@@ -1,4 +1,4 @@
-package com.example.taskplanner.Composables
+package com.example.taskplanner.UILayer.ViewModels.Composables
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,7 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.taskplanner.Task
+import com.example.taskplanner.DataLayer.Task
 
 
 @Composable
