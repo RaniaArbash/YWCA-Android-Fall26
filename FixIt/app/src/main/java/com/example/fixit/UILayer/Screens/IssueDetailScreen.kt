@@ -1,10 +1,6 @@
-package com.example.fixit.UILayer
+package com.example.fixit.UILayer.Screens
 
-import android.content.Intent
 import android.graphics.Bitmap
-import android.net.Uri
-import android.provider.MediaStore
-import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
@@ -22,7 +18,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
-import androidx.core.app.ActivityCompat.startActivityForResult
 
 @Composable
 fun IssueDetailScreen(){
@@ -36,33 +31,22 @@ fun IssueDetailScreen(){
             photoBitmap = bitmap
         }
     }
-
     Scaffold(){
         innerPadding->
 
         Column(modifier = Modifier.padding(innerPadding)) {
             Button(onClick = {
-               // cameraLauncher.launch(null)
-                val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
-                   // putExtra(MediaStore.EXTRA_OUTPUT, Uri.withAppendedPath(locationForPhotos, targetFilename))
-                }
-                try{
-                    context.startActivity(intent)
-                }
-                catch (e: Exception){
-                    Toast.makeText(context,"No such App", Toast.LENGTH_LONG).show()
-
-                }
-                //    startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
-
+                cameraLauncher.launch(null)
             }){
                 Text("Take a photo")
             }
-//            Image(
-//                bitmap = photoBitmap!!.asImageBitmap(),
-//                contentDescription = "Temporary Photo Preview",
-//                modifier = Modifier.fillMaxSize()
-//            )
+            photoBitmap?.asImageBitmap()?.let {
+                Image(
+                    bitmap = it,
+                    contentDescription = "Temporary Photo Preview",
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
 
 
         }

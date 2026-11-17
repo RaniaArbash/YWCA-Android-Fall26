@@ -5,14 +5,13 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 
+import com.example.fixit.UILayer.Screens.IssueDetailScreen
 import com.example.fixit.UILayer.IssueViewModel
-import com.example.fixit.UILayer.SpecialistProfileScreen
+import com.example.fixit.UILayer.Navigation.FixItNavGraph
 import com.example.fixit.ui.theme.FixItTheme
 
 class MainActivity : ComponentActivity() {
@@ -20,12 +19,11 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-           // val issueViewModel : IssueViewModel = viewModel()
+            val issueViewModel : IssueViewModel = viewModel()
 
             FixItTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-
-
+                    FixItNavGraph(issueViewModel)
                 }
             }
         }

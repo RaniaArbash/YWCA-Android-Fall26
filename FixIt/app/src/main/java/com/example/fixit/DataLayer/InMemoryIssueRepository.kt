@@ -18,7 +18,10 @@ class InMemoryIssueRepository : IssueRepository {
     }
 
     override suspend fun updateIssue(issue: Issue) {
-        TODO("Not yet implemented")
+        val currentList = issuesFlow.value
+        issuesFlow.value = currentList.map { existing ->
+            if (existing.id == issue.id) issue else existing
+        }
     }
 
     override suspend fun deleteIssue(issueId: String) {

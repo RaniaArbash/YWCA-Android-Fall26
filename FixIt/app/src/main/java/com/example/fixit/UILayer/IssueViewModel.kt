@@ -14,12 +14,13 @@ import java.util.UUID
 class IssueViewModel(private val repository: IssueRepository = InMemoryIssueRepository())
     : ViewModel() {
 
-    // issues list
-    // current Issue
-
     val issues : StateFlow<List<Issue>> = repository.getIssues() as StateFlow<List<Issue>>
     private val _currentIssueId = MutableStateFlow<String?>(null)
     val currentIssueId : StateFlow<String?> = _currentIssueId.asStateFlow()
+
+    fun setCurrentIssueId(issueId: String?) {
+        _currentIssueId.value = issueId
+    }
 
     fun addIssue(title: String, category: String, description: String, specialistId: String? = null, status: String = "Pending") {
         viewModelScope.launch {
