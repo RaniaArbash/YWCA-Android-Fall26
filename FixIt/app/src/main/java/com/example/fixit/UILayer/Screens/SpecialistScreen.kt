@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.fixit.DataLayer.Specialist
+import com.example.fixit.DataLayer.RoomDB.Specialist
 import com.example.fixit.DataLayer.SpecialistDirectory
 
 @OptIn(ExperimentalMaterial3Api::class)

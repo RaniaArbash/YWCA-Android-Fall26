@@ -1,5 +1,7 @@
 package com.example.fixit.DataLayer
 
+import com.example.fixit.DataLayer.RoomDB.Specialist
+
 object SpecialistDirectory {
     val specialists = listOf(
         Specialist(

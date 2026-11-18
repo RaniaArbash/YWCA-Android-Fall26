@@ -20,8 +20,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.fixit.DataLayer.Issue
-import com.example.fixit.DataLayer.Specialist
+import com.example.fixit.DataLayer.RoomDB.Issue
+import com.example.fixit.DataLayer.RoomDB.Specialist
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

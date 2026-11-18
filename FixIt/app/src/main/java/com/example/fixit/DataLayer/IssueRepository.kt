@@ -1,5 +1,6 @@
 package com.example.fixit.DataLayer
 
+import com.example.fixit.DataLayer.RoomDB.Issue
 import kotlinx.coroutines.flow.Flow
 
 interface IssueRepository {

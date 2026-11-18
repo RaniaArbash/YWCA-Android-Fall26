@@ -1,20 +1,27 @@
 package com.example.fixit.UILayer
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.fixit.DataLayer.InMemoryIssueRepository
-import com.example.fixit.DataLayer.Issue
+import com.example.fixit.DataLayer.RoomDB.Issue
 import com.example.fixit.DataLayer.IssueRepository
+import com.example.fixit.DataLayer.RoomDBIssueRepository
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.util.UUID
 
-class IssueViewModel(private val repository: IssueRepository = InMemoryIssueRepository())
-    : ViewModel() {
+class IssueViewModel(
+    private val repository: IssueRepository) : ViewModel() {
 
-    val issues : StateFlow<List<Issue>> = repository.getIssues() as StateFlow<List<Issue>>
+    val issues : StateFlow<List<Issue>> = repository.getIssues().stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = emptyList()
+    )
     private val _currentIssueId = MutableStateFlow<String?>(null)
     val currentIssueId : StateFlow<String?> = _currentIssueId.asStateFlow()
 
@@ -66,4 +73,20 @@ class IssueViewModel(private val repository: IssueRepository = InMemoryIssueRepo
             }
         }
     }
+
+    companion object {
+        fun provideFactory(repository: IssueRepository): ViewModelProvider.Factory =
+            object : ViewModelProvider.Factory {
+                @Suppress("UNCHECKED_CAST")
+                override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                    if (modelClass.isAssignableFrom(IssueViewModel::class.java)) {
+                        return IssueViewModel(repository) as T
+                    }
+                    throw IllegalArgumentException("Unknown ViewModel class")
+                }
+            }
+    }
+
+
+
 }
