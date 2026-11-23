@@ -1,7 +1,4 @@
 package com.example.courseselection.DataLayer
-
-import android.util.Log
-
 class CourseRepository {
 
     var coursesList = mutableListOf<Course>()
@@ -89,8 +86,4 @@ class CourseRepository {
             favIdsSet += id
         }
     }
-
-
-
-
 }
