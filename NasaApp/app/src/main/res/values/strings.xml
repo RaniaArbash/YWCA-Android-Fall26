@@ -1,3 +1,27 @@
 <resources>
-    <string name="app_name">NasaPhotosApp</string>
+    <string name="app_name">NASA Mars Explorer</string>
+    <string name="app_subtitle">Explore images from NASA\'s missions and discoveries</string>
+    <string name="search_hint">Search Mars images...</string>
+    <string name="search_button">Search</string>
+    <string name="clear_search">Clear search</string>
+    <string name="quick_topics_title">Explore Topics</string>
+    <string name="topic_mars">Mars</string>
+    <string name="topic_curiosity">Curiosity</string>
+    <string name="topic_perseverance">Perseverance</string>
+    <string name="topic_mars_rover">Mars Rover</string>
+    <string name="topic_mars_surface">Mars Surface</string>
+    <string name="topic_mars_landscape">Mars Landscape</string>
+    <string name="loading_images">Loading NASA images...</string>
+    <string name="retry">Retry</string>
+    <string name="error_title">Something went wrong</string>
+    <string name="error_unknown">Unable to fetch images. Check your connection and try again.</string>
+    <string name="empty_title">No Images Found</string>
+    <string name="empty_message">No results found for \"%1$s\". Try searching for something else.</string>
+    <string name="image_details_title">Image Details</string>
+    <string name="nasa_id_label">NASA ID</string>
+    <string name="date_label">Date Created</string>
+    <string name="keywords_label">Keywords</string>
+    <string name="description_label">Description</string>
+    <string name="no_description">No description provided for this item.</string>
+    <string name="back">Back</string>
 </resources>
