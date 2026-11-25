@@ -93,6 +93,10 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
+
+
+
 }
 
 data class BottomNavItem(
@@ -100,3 +104,4 @@ data class BottomNavItem(
     val label: String,
     val icon: ImageVector
 )
+

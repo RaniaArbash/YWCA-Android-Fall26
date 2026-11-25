@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
  * ViewModel managing search query, search results, loading state, error messages, and favorites.
  * Injected with BookRepository via ViewModel Factory.
  */
-class BookViewModel(private val repository: BookRepository) : ViewModel() {
+class BookViewModel(private val repository: BookRepository ) : ViewModel() {
 
     private val _searchQuery = MutableStateFlow("")
     val searchQuery: StateFlow<String> = _searchQuery.asStateFlow()
